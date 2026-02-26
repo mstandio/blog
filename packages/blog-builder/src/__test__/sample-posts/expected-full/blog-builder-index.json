@@ -1,0 +1,19 @@
+{
+    "timeline": {
+        "pages": 2
+    },
+    "tags" : [
+        {
+            "name": "blue",
+            "pages": 1
+        },
+        {
+            "name": "green",
+            "pages": 1
+        },
+        {
+            "name": "red",
+            "pages": 2
+        }
+    ]    
+}
