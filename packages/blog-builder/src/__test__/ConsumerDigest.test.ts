@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, rmSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { afterAll, describe, expect, it, vi } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import type { BuilderConfig, PostMetadata } from '../utils/Model.ts';
 import { ConsumerDigest } from '../utils/ConsumerDigest.ts';
 import { Digest } from '../utils/Digest.ts';
@@ -95,6 +95,12 @@ describe('ConsumerDigest + traverse integration', () => {
         join(SAMPLE_POSTS, '251015-third-description'),
     ];
 
+    beforeAll(() => {
+        // given — run traverse once; all per-test assertions read the files it created
+        const consumer = new ConsumerDigest(integrationConfig);
+        traverse(SAMPLE_POSTS, [consumer]);
+    });
+
     afterAll(() => {
         for (const dir of qualifyingDirs) {
             rmSync(join(dir, testMetadataFile), { force: true });
@@ -102,31 +108,27 @@ describe('ConsumerDigest + traverse integration', () => {
     });
 
     it('creates a metadata JSON file in each qualifying sample-posts subdirectory', () => {
-        // given
-        const consumer = new ConsumerDigest(integrationConfig);
-
-        // when
-        traverse(SAMPLE_POSTS, [consumer]);
-
-        // then
+        // given — files written by beforeAll
         for (const dir of qualifyingDirs) {
+            // when / then
             expect(existsSync(join(dir, testMetadataFile))).toBe(true);
         }
     });
 
-    it('written metadata files contain valid PostMetadata shape', () => {
-        // given — files already created by the previous test
+    it('written metadata files match the committed blog-builder-metadata.json in each directory', () => {
         for (const dir of qualifyingDirs) {
+            // given
+            const committed = JSON.parse(
+                readFileSync(join(dir, 'blog-builder-metadata.json'), 'utf-8'),
+            ) as PostMetadata;
+
             // when
-            const content = JSON.parse(readFileSync(join(dir, testMetadataFile), 'utf-8')) as PostMetadata;
+            const written = JSON.parse(
+                readFileSync(join(dir, testMetadataFile), 'utf-8'),
+            ) as PostMetadata;
 
             // then
-            expect(content).toHaveProperty('post');
-            expect(content.post).toHaveProperty('title');
-            expect(content.post).toHaveProperty('date');
-            expect(content.post).toHaveProperty('url');
-            expect(content.post).toHaveProperty('tags');
-            expect(Array.isArray(content.post.tags)).toBe(true);
+            expect(written).toEqual(committed);
         }
     });
 });
