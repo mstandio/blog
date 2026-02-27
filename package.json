@@ -1,0 +1,10 @@
+{
+    "name": "blog",
+    "private": true,
+    "workspaces": [
+        "packages/*"
+    ],
+    "scripts": {
+        "verify": "npm run verify --workspaces --if-present"
+    }
+}
