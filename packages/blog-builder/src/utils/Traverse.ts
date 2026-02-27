@@ -1,9 +1,8 @@
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import type { Consumer } from './Model.ts';
 
-export interface Consumer {
-    consume(dirPath: string): void;
-}
+export type { Consumer };
 
 export function traverse(rootDir: string, consumers: Consumer[]): void {
     const entries = readdirSync(rootDir, { withFileTypes: true });

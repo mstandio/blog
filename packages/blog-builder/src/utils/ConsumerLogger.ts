@@ -1,9 +1,5 @@
 import { basename } from 'node:path';
-import type { Consumer } from './Traverse.ts';
-
-interface Logger {
-    log: (message: string) => void;
-}
+import type { Consumer, Logger } from './Model.ts';
 
 export class ConsumerLogger implements Consumer {
     private readonly logger: Logger;

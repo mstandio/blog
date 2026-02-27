@@ -3,6 +3,8 @@
 Auto-generated from all feature plans. Last updated: 2026-02-27
 
 ## Active Technologies
+- TypeScript 5.9 (strict, NodeNext modules, `allowImportingTsExtensions`) + `node:fs` (`existsSync`, `writeFileSync`), `node:path` (`join`) — all stdlib; `Digest` class from `./Digest.ts` (002-consumer-digest)
+- Local filesystem — synchronous reads/writes (consistent with existing `Digest` pattern) (002-consumer-digest)
 
 - TypeScript 5.9 (strict, NodeNext modules, `allowImportingTsExtensions`) + `node:fs` (stdlib — `readdirSync` with `withFileTypes`), `node:path` (stdlib — `basename`, `join`) (001-traverse-consumer-util)
 
@@ -22,6 +24,7 @@ npm test; npm run lint
 TypeScript 5.9 (strict, NodeNext modules, `allowImportingTsExtensions`): Follow standard conventions
 
 ## Recent Changes
+- 002-consumer-digest: Added TypeScript 5.9 (strict, NodeNext modules, `allowImportingTsExtensions`) + `node:fs` (`existsSync`, `writeFileSync`), `node:path` (`join`) — all stdlib; `Digest` class from `./Digest.ts`
 
 - 001-traverse-consumer-util: Added TypeScript 5.9 (strict, NodeNext modules, `allowImportingTsExtensions`) + `node:fs` (stdlib — `readdirSync` with `withFileTypes`), `node:path` (stdlib — `basename`, `join`)
 
