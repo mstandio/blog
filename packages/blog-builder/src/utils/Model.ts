@@ -13,6 +13,7 @@ export interface BuilderConfig {
     'teaser-class': string;
     'tag-class': string;
     'posts-per-page'?: number;
+    'metadata-file': string;
 }
 
 export interface Logger {
