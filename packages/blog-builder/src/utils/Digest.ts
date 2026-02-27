@@ -1,27 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { basename, dirname } from 'node:path';
 import { parse } from 'node-html-parser';
+import type { BuilderConfig, Logger, PostMetadata } from './Model.ts';
 
-export interface PostMetadata {
-    post: {
-        title: string;
-        teaser: string;
-        date: string;
-        url: string;
-        tags: string[];
-    };
-}
-
-export interface BuilderConfig {
-    'title-class': string;
-    'teaser-class': string;
-    'tag-class': string;
-    'posts-per-page'?: number;
-}
-
-export interface Logger {
-    log: (message: string) => void;
-}
+export type { BuilderConfig, Logger, PostMetadata };
 
 export type FileReader = (filePath: string) => string;
 
