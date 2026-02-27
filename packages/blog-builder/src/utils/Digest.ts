@@ -12,6 +12,13 @@ export interface PostMetadata {
     };
 }
 
+export interface BuilderConfig {
+    'title-class': string;
+    'teaser-class': string;
+    'tag-class': string;
+    'posts-per-page'?: number;
+}
+
 export interface Logger {
     log: (message: string) => void;
 }
@@ -30,15 +37,15 @@ export class Digest {
         this.fileReader = fileReader;
     }
 
-    process(filePath: string): PostMetadata {
+    process(filePath: string, config: BuilderConfig): PostMetadata {
         this.logger.log(filePath);
 
         const html = this.fileReader(filePath);
         const root = parse(html);
 
-        const title = root.querySelector('.blog-builder-title')?.text.trim() ?? '';
-        const teaser = root.querySelector('.blog-builder-teaser')?.text.trim() ?? '';
-        const tags = root.querySelectorAll('.blog-builder-tag').map((el) => el.text.trim());
+        const title = root.querySelector(`.${config['title-class']}`)?.text.trim() ?? '';
+        const teaser = root.querySelector(`.${config['teaser-class']}`)?.text.trim() ?? '';
+        const tags = root.querySelectorAll(`.${config['tag-class']}`).map((el) => el.text.trim());
 
         const folderName = basename(dirname(filePath));
         const url = `/${folderName}`;

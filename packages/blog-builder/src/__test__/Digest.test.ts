@@ -2,10 +2,15 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it, vi } from 'vitest';
+import type { BuilderConfig } from '../utils/Digest.ts';
 import { Digest } from '../utils/Digest.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SAMPLE_POSTS = join(__dirname, 'sample-posts');
+
+const config: BuilderConfig = JSON.parse(
+    readFileSync(join(SAMPLE_POSTS, 'expected-full', 'blog-builder-config.json'), 'utf-8'),
+);
 
 describe('Digest', () => {
     describe('process', () => {
@@ -17,7 +22,7 @@ describe('Digest', () => {
             const filePath = '/mock/path/to/index.html';
 
             // when
-            digest.process(filePath);
+            digest.process(filePath, config);
 
             // then
             expect(logger.log).toHaveBeenCalledWith(filePath);
@@ -32,7 +37,7 @@ describe('Digest', () => {
             );
 
             // when
-            const result = digest.process(filePath);
+            const result = digest.process(filePath, config);
 
             // then
             expect(result).toEqual(expected);
@@ -50,7 +55,7 @@ describe('Digest', () => {
             );
 
             // when
-            const result = digest.process(filePath);
+            const result = digest.process(filePath, config);
 
             // then
             expect(result).toEqual(expected);
@@ -65,7 +70,7 @@ describe('Digest', () => {
             );
 
             // when
-            const result = digest.process(filePath);
+            const result = digest.process(filePath, config);
 
             // then
             expect(result).toEqual(expected);
