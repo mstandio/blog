@@ -23,3 +23,7 @@ export interface Logger {
 export interface Consumer {
     consume(dirPath: string): void;
 }
+
+export interface Page {
+    posts: PostMetadata[];
+}
