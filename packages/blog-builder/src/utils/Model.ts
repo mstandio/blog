@@ -1,11 +1,13 @@
+export interface Post {
+    title: string;
+    teaser: string;
+    date: string;
+    url: string;
+    tags: string[];
+}
+
 export interface PostMetadata {
-    post: {
-        title: string;
-        teaser: string;
-        date: string;
-        url: string;
-        tags: string[];
-    };
+    post: Post;
 }
 
 export interface BuilderConfig {
@@ -24,6 +26,10 @@ export interface Consumer {
     consume(dirPath: string): void;
 }
 
+export interface Writer {
+    write(fileName: string, content: string): void;
+}
+
 export interface Page {
-    posts: PostMetadata[];
+    posts: Post[];
 }
