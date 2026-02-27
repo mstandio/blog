@@ -18,7 +18,9 @@ As a blog-builder CLI user, I want a `Digest` utility that accepts a file path a
 **Acceptance Scenarios**:
 
 1. **Given** a `Digest` instance with an injected logger, **When** `process` is called with a file path, **Then** the logger logs the received path.
-2. **Given** a `Digest` instance, **When** `process` is called with a file path, **Then** the returned object conforms to the `PostMetadata` shape (currently empty).
+2. **Given** a `Digest` instance and a path to `251013-some-description/index.html`, **When** `process` is called, **Then** the returned object equals the contents of `251013-some-description/blog-builder-metadata.json`.
+3. **Given** a `Digest` instance and a path to `251014-some-other-description/index.html`, **When** `process` is called, **Then** the returned object equals the contents of `251014-some-other-description/blog-builder-metadata.json`.
+4. **Given** a `Digest` instance and a path to `251015-third-description/index.html`, **When** `process` is called, **Then** the returned object equals the contents of `251015-third-description/blog-builder-metadata.json`.
 
 ---
 
@@ -33,8 +35,12 @@ As a blog-builder CLI user, I want a `Digest` utility that accepts a file path a
 
 - **FR-001**: `Digest` MUST expose a `process(filePath: string)` method.
 - **FR-002**: `process` MUST log the received file path via an injected logger.
-- **FR-003**: `process` MUST return an object conforming to the `PostMetadata` type (currently `{}`).
-- **FR-004**: `Digest` MUST accept a logger via constructor injection with `console` as the default.
+- **FR-003**: `process` MUST read the HTML file at the given path via an injected `FileReader` (defaults to `fs.readFileSync`).
+- **FR-004**: `process` MUST extract `post.title` from the text content of elements with class `blog-builder-title`.
+- **FR-005**: `process` MUST extract `post.teaser` from the text content of elements with class `blog-builder-teaser`.
+- **FR-006**: `process` MUST extract `post.tags` from the text content of all elements with class `blog-builder-tag`.
+- **FR-007**: `process` MUST derive `post.date` (`YYYY-MM-DD`) and `post.url` from the parent folder name of the given path.
+- **FR-008**: `Digest` MUST accept a logger and a fileReader via constructor injection with `console`/`readFileSync` as defaults.
 - **FR-005**: The `PostMetadata` type MUST match the shape exemplified in `blog-builder-metadata.json`.
 
 ### Key Entities
