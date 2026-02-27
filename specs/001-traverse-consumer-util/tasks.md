@@ -19,7 +19,7 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T001 Define and export the `Consumer` interface (with `consume(dirPath: string): void`) in `packages/blog-builder/src/utils/Traverse.ts`
+- [x] T001 Define and export the `Consumer` interface (with `consume(dirPath: string): void`) in `packages/blog-builder/src/utils/Traverse.ts`
 
 **Checkpoint**: `Consumer` interface exists — both US1 and US2 can now proceed in parallel.
 
@@ -33,7 +33,7 @@
 
 ### Tests for User Story 1 ⚠️ Write FIRST — ensure they FAIL before implementation
 
-- [ ] T002 [US1] Write failing unit tests for `traverse` in `packages/blog-builder/src/__test__/Traverse.test.ts`:
+- [x] T002 [US1] Write failing unit tests for `traverse` in `packages/blog-builder/src/__test__/Traverse.test.ts`:
   - `given` 3 qualifying subdirs, `when` traverse called, `then` consumer invoked 3× in alphabetical order
   - `given` qualifying + non-qualifying subdirs (e.g. `expected-full`), `when` traverse called, `then` non-qualifying dirs are not passed to consumers
   - `given` root with files alongside subdirs, `when` traverse called, `then` files are not passed to consumers
@@ -41,7 +41,7 @@
 
 ### Implementation for User Story 1
 
-- [ ] T003 [US1] Implement `traverse(rootDir: string, consumers: Consumer[]): void` in `packages/blog-builder/src/utils/Traverse.ts` using `readdirSync` with `withFileTypes: true`, filtering by `isDirectory() && /^\d{6}-.+`, sorting ascending, and calling each consumer with the full joined path (depends on T002 tests being red)
+- [x] T003 [US1] Implement `traverse(rootDir: string, consumers: Consumer[]): void` in `packages/blog-builder/src/utils/Traverse.ts` using `readdirSync` with `withFileTypes: true`, filtering by `isDirectory() && /^\d{6}-.+`, sorting ascending, and calling each consumer with the full joined path (depends on T002 tests being red)
 
 **Checkpoint**: User Story 1 fully functional — run `npm run test -w @blog/blog-builder` to verify all T002 cases are green.
 
@@ -55,12 +55,12 @@
 
 ### Tests for User Story 2 ⚠️ Write FIRST — ensure they FAIL before implementation
 
-- [ ] T004 [P] [US2] Write failing unit test for `ConsumerLogger` in `packages/blog-builder/src/__test__/Traverse.test.ts`:
+- [x] T004 [P] [US2] Write failing unit test for `ConsumerLogger` in `packages/blog-builder/src/__test__/Traverse.test.ts`:
   - `given` a `ConsumerLogger` with a mock logger, `when` `consume` called with a full path, `then` only the `basename` is passed to `logger.log`
 
 ### Implementation for User Story 2
 
-- [ ] T005 [P] [US2] Implement `ConsumerLogger` class in `packages/blog-builder/src/utils/ConsumerLogger.ts` — constructor accepts optional `{ log: (msg: string) => void }` (defaults to `console`); `consume` calls `logger.log(basename(dirPath))` (depends on T004 test being red)
+- [x] T005 [P] [US2] Implement `ConsumerLogger` class in `packages/blog-builder/src/utils/ConsumerLogger.ts` — constructor accepts optional `{ log: (msg: string) => void }` (defaults to `console`); `consume` calls `logger.log(basename(dirPath))` (depends on T004 test being red)
 
 **Checkpoint**: User Story 2 fully functional — both US1 and US2 tests green.
 
@@ -72,7 +72,7 @@
 
 **Independent Test**: `npm run test -w @blog/blog-builder` — integration test asserts logger received exactly `['251013-some-description', '251014-some-other-description', '251015-third-description']`.
 
-- [ ] T006 [US3] Write integration test in `packages/blog-builder/src/__test__/Traverse.test.ts` — `given` the `sample-posts` fixture, `when` `traverse` is called with a `ConsumerLogger`, `then` `logger.log` was called exactly 3 times with values `['251013-some-description', '251014-some-other-description', '251015-third-description']` in that order (use `dirname` + `fileURLToPath` for `__dirname`; assert with `toEqual` on the full recorded call list)
+- [x] T006 [US3] Write integration test in `packages/blog-builder/src/__test__/Traverse.test.ts` — `given` the `sample-posts` fixture, `when` `traverse` is called with a `ConsumerLogger`, `then` `logger.log` was called exactly 3 times with values `['251013-some-description', '251014-some-other-description', '251015-third-description']` in that order (use `dirname` + `fileURLToPath` for `__dirname`; assert with `toEqual` on the full recorded call list)
 
 **Checkpoint**: All three user stories independently verified. Full test suite green.
 
@@ -80,7 +80,7 @@
 
 ## Phase 5: Verify
 
-- [ ] T007 Run `npm run verify -w @blog/blog-builder` from repo root — `typecheck` and `test` both pass with zero errors
+- [x] T007 Run `npm run verify -w @blog/blog-builder` from repo root — `typecheck` and `test` both pass with zero errors
 
 ---
 
