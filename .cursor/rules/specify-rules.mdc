@@ -1,0 +1,29 @@
+﻿# blog Development Guidelines
+
+Auto-generated from all feature plans. Last updated: 2026-02-27
+
+## Active Technologies
+
+- TypeScript 5.9 (strict, NodeNext modules, `allowImportingTsExtensions`) + `node:fs` (stdlib — `readdirSync` with `withFileTypes`), `node:path` (stdlib — `basename`, `join`) (001-traverse-consumer-util)
+
+## Project Structure
+
+```text
+src/
+tests/
+```
+
+## Commands
+
+npm test; npm run lint
+
+## Code Style
+
+TypeScript 5.9 (strict, NodeNext modules, `allowImportingTsExtensions`): Follow standard conventions
+
+## Recent Changes
+
+- 001-traverse-consumer-util: Added TypeScript 5.9 (strict, NodeNext modules, `allowImportingTsExtensions`) + `node:fs` (stdlib — `readdirSync` with `withFileTypes`), `node:path` (stdlib — `basename`, `join`)
+
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->
