@@ -22,4 +22,8 @@ export class ConsumerDigest implements Consumer {
         const metadata = this.digest.process(indexPath, this.config);
         writeFileSync(metadataPath, JSON.stringify(metadata, null, 2), 'utf-8');
     }
+
+    flush(): void {
+        // do nothing
+    }
 }

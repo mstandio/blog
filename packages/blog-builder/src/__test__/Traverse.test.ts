@@ -16,7 +16,7 @@ describe('traverse', () => {
     it('invokes consumer for each qualifying subdir in alphabetical order', () => {
         // given
         const consumed: string[] = [];
-        const consumer: Consumer = { consume: (p) => consumed.push(p) };
+        const consumer: Consumer = { consume: (p) => consumed.push(p), flush: () => {} };
 
         // when
         traverse(SAMPLE_POSTS, [consumer]);
@@ -32,7 +32,7 @@ describe('traverse', () => {
     it('skips non-qualifying subdirectories (e.g. expected-full)', () => {
         // given
         const names: string[] = [];
-        const consumer: Consumer = { consume: (p) => names.push(p) };
+        const consumer: Consumer = { consume: (p) => names.push(p), flush: () => {} };
 
         // when
         traverse(SAMPLE_POSTS, [consumer]);
@@ -46,8 +46,8 @@ describe('traverse', () => {
         // given
         const callsA: string[] = [];
         const callsB: string[] = [];
-        const consumerA: Consumer = { consume: (p) => callsA.push(p) };
-        const consumerB: Consumer = { consume: (p) => callsB.push(p) };
+        const consumerA: Consumer = { consume: (p) => callsA.push(p), flush: () => {} };
+        const consumerB: Consumer = { consume: (p) => callsB.push(p), flush: () => {} };
 
         // when
         traverse(SAMPLE_POSTS, [consumerA, consumerB]);

@@ -11,4 +11,8 @@ export class ConsumerLogger implements Consumer {
     consume(dirPath: string): void {
         this.logger.log(basename(dirPath));
     }
+
+    flush(): void {
+        // do nothing
+    }
 }

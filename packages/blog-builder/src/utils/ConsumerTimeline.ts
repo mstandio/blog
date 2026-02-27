@@ -23,10 +23,20 @@ export class ConsumerTimeline implements Consumer {
         this.page.posts.push(metadata.post);
 
         if (this.page.posts.length === this.config['posts-per-page']) {
-            const content = JSON.stringify(this.page, null, 3);
-            this.writer.write(`blog-builder-timeline-page${this.writeCounter}.json`, content);
-            this.writeCounter += 1;
-            this.page = { posts: [] };
+           this.writePage();
+        }
+    }
+
+    writePage(): void {
+        const content = JSON.stringify(this.page, null, 3);
+        this.writer.write(`blog-builder-timeline-page${this.writeCounter}.json`, content);
+        this.writeCounter += 1;
+        this.page = { posts: [] };
+    }
+
+    flush(): void {
+        if(this.page.posts.length > 0) {
+            this.writePage();
         }
     }
 }

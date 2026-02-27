@@ -24,6 +24,7 @@ export interface Logger {
 
 export interface Consumer {
     consume(dirPath: string): void;
+    flush(): void;
 }
 
 export interface Writer {

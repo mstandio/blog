@@ -16,4 +16,7 @@ export function traverse(rootDir: string, consumers: Consumer[]): void {
             consumer.consume(fullPath);
         }
     }
+    for (const consumer of consumers) {
+        consumer.flush();
+    }
 }
