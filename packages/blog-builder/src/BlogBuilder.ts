@@ -1,7 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import type { BuilderConfig, Index } from './utils/Model.ts';
+import type { BuilderConfig, Index } from '@blog/shared';
 import { ConsumerDigest } from './utils/ConsumerDigest.ts';
+import { ConsumerLogger } from './utils/ConsumerLogger.ts';
 import { ConsumerTags } from './utils/ConsumerTags.ts';
 import { ConsumerTimeline } from './utils/ConsumerTimeline.ts';
 import { traverse } from './utils/Traverse.ts';
@@ -20,6 +21,7 @@ export function buildBlog(inputDir: string, outputDir: string = inputDir): void 
     const tags = new ConsumerTags(writer, config);
 
     const consumers = [
+        new ConsumerLogger(),
         new ConsumerDigest(config),
         timeline,
         tags,
