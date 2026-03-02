@@ -30,4 +30,4 @@ Thumbs.db
 *.log
 
 
-docs/**/blog-builder-metadata.json
+content/**/blog-builder-metadata.json
