@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
-import type { BuilderConfig, Page, Writer } from '../utils/Model.ts';
+import type { BuilderConfig, Index, Page, Writer } from '../utils/Model.ts';
 import { ConsumerTimeline } from '../utils/ConsumerTimeline.ts';
 import { traverse } from '../utils/Traverse.ts';
 
@@ -52,9 +52,10 @@ describe('ConsumerTimeline + traverse integration', () => {
     );
 
     const mockWriter: Writer = { write: vi.fn() };
+    let consumer: ConsumerTimeline;
 
     beforeAll(() => {
-        const consumer = new ConsumerTimeline(mockWriter, config);
+        consumer = new ConsumerTimeline(mockWriter, config);
         traverse(SAMPLE_POSTS, [consumer]);
     });
 
@@ -72,5 +73,12 @@ describe('ConsumerTimeline + traverse integration', () => {
         const [filename, content] = (mockWriter.write as ReturnType<typeof vi.fn>).mock.calls[1] as [string, string];
         expect(filename).toBe('blog-builder-timeline-page2.json');
         expect(JSON.parse(content)).toEqual(expectedPage2);
+    });
+
+    it('getIndex returns timeline matching the timeline field in blog-builder-index.json', () => {
+        const expectedIndex: Index = JSON.parse(
+            readFileSync(join(SAMPLE_POSTS, 'expected-full', 'blog-builder-index.json'), 'utf-8'),
+        );
+        expect(consumer.getIndex()).toEqual(expectedIndex.timeline);
     });
 });
