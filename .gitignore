@@ -29,4 +29,5 @@ Thumbs.db
 # Logs
 *.log
 
-docs/*/blog-builder-metadata.json
+
+docs/**/blog-builder-metadata.json

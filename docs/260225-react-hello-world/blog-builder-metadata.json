@@ -1,12 +1,13 @@
 {
-    "post": {
-        "title": "This is third title",
-        "teaser": "This is third teaser text",
-        "date": "2025-10-15",
-        "url": "/251015-third-description",
-        "tags": [
-            "green",
-            "red"
-        ]
-    }
+  "post": {
+    "title": "This is some title",
+    "teaser": "This is some teaser text",
+    "date": "2026-02-25",
+    "url": "/260225-react-hello-world",
+    "tags": [
+      "blue",
+      "green",
+      "red"
+    ]
+  }
 }

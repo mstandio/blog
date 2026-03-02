@@ -4,6 +4,10 @@
     },
     "tags": [
         {
+            "name": "blue",
+            "pages": 1
+        },
+        {
             "name": "green",
             "pages": 1
         },
