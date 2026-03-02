@@ -2,11 +2,17 @@
     "extends": "../../tsconfig.json",
     "compilerOptions": {
         "lib": ["ES2022", "ES2023", "ES2024", "DOM", "DOM.Iterable"],
-        "jsx": "react-jsx"
+        "jsx": "react-jsx",
+        "rootDir": ".",
+        "outDir": "./dist",
+        "tsBuildInfoFile": "./dist/.tsbuildinfo"
     },
     "include": [
         "blog-viewer.tsx",
         "src/**/*.ts",
         "src/**/*.tsx"
+    ],
+    "exclude": [
+        "src/**/*.test.tsx"
     ]
 }
