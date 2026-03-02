@@ -1,9 +1,10 @@
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
 import type { BuilderConfig, Page, Writer } from '../utils/Model.ts';
 import { ConsumerTimeline } from '../utils/ConsumerTimeline.ts';
+import { traverse } from '../utils/Traverse.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SAMPLE_POSTS = join(__dirname, 'sample-posts');
@@ -32,5 +33,44 @@ describe('ConsumerTimeline', () => {
         const [filename, content] = (mockWriter.write as ReturnType<typeof vi.fn>).mock.calls[0] as [string, string];
         expect(filename).toBe('blog-builder-timeline-page1.json');
         expect(JSON.parse(content)).toEqual(expectedPage);
+    });
+});
+
+// ---------------------------------------------------------------------------
+// ConsumerTimeline + traverse — integration test
+// ---------------------------------------------------------------------------
+
+describe('ConsumerTimeline + traverse integration', () => {
+    const config: BuilderConfig = JSON.parse(
+        readFileSync(join(SAMPLE_POSTS, 'expected-full', 'blog-builder-config.json'), 'utf-8'),
+    );
+    const expectedPage1: Page = JSON.parse(
+        readFileSync(join(SAMPLE_POSTS, 'expected-full', 'blog-builder-timeline-page1.json'), 'utf-8'),
+    );
+    const expectedPage2: Page = JSON.parse(
+        readFileSync(join(SAMPLE_POSTS, 'expected-full', 'blog-builder-timeline-page2.json'), 'utf-8'),
+    );
+
+    const mockWriter: Writer = { write: vi.fn() };
+
+    beforeAll(() => {
+        const consumer = new ConsumerTimeline(mockWriter, config);
+        traverse(SAMPLE_POSTS, [consumer]);
+    });
+
+    it('invokes write twice — once per page', () => {
+        expect(mockWriter.write).toHaveBeenCalledTimes(2);
+    });
+
+    it('first write call uses filename blog-builder-timeline-page1.json and content matching expected page1', () => {
+        const [filename, content] = (mockWriter.write as ReturnType<typeof vi.fn>).mock.calls[0] as [string, string];
+        expect(filename).toBe('blog-builder-timeline-page1.json');
+        expect(JSON.parse(content)).toEqual(expectedPage1);
+    });
+
+    it('second write call uses filename blog-builder-timeline-page2.json and content matching expected page2', () => {
+        const [filename, content] = (mockWriter.write as ReturnType<typeof vi.fn>).mock.calls[1] as [string, string];
+        expect(filename).toBe('blog-builder-timeline-page2.json');
+        expect(JSON.parse(content)).toEqual(expectedPage2);
     });
 });
