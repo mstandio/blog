@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
-import type { BuilderConfig, Page, Writer } from '../utils/Model.ts';
+import type { BuilderConfig, Index, Page, Writer } from '../utils/Model.ts';
 import { ConsumerTags } from '../utils/ConsumerTags.ts';
 import { traverse } from '../utils/Traverse.ts';
 
@@ -58,9 +58,10 @@ describe('ConsumerTags + traverse integration', () => {
     );
 
     const mockWriter: Writer = { write: vi.fn() };
+    let consumer: ConsumerTags;
 
     beforeAll(() => {
-        const consumer = new ConsumerTags(mockWriter, config);
+        consumer = new ConsumerTags(mockWriter, config);
         traverse(SAMPLE_POSTS, [consumer]);
     });
 
@@ -95,5 +96,12 @@ describe('ConsumerTags + traverse integration', () => {
         const call = callFor('blog-builder-tag_blue-page1.json');
         expect(call).toBeDefined();
         expect(JSON.parse(call![1])).toEqual(expectedBluePage1);
+    });
+
+    it('getIndex returns tags matching the tags field in blog-builder-index.json', () => {
+        const expectedIndex: Index = JSON.parse(
+            readFileSync(join(SAMPLE_POSTS, 'expected-full', 'blog-builder-index.json'), 'utf-8'),
+        );
+        expect(consumer.getIndex()).toEqual(expectedIndex.tags);
     });
 });

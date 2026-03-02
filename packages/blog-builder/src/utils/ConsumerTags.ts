@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import type { BuilderConfig, Consumer, Page, PostMetadata, Writer, IndexTags } from './Model.ts';
+import type { BuilderConfig, Consumer, IndexTag, Page, PostMetadata, Writer } from './Model.ts';
 
 interface TagEntry {
     page: Page;
@@ -52,12 +52,9 @@ export class ConsumerTags implements Consumer {
         }
     }
 
-    getIndex(): IndexTags {
-        return {
-            tags: Array.from(this.tagsMap.entries()).sort((a, b) => a[0].localeCompare(b[0])).map(([tag, entry]) => ({
-                name: tag,
-                pages: entry.writeCounter - 1,
-            })),
-        };
+    getIndex(): IndexTag[] {
+        return Array.from(this.tagsMap.entries())
+            .sort(([a], [b]) => a.localeCompare(b))
+            .map(([tag, entry]) => ({ name: tag, pages: entry.writeCounter - 1 }));
     }
 }

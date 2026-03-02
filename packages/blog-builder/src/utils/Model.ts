@@ -50,5 +50,5 @@ export interface IndexTags {
 
 export interface Index {
     timeline: IndexTimeline;
-    tags: IndexTags;
+    tags: IndexTag[];
 }
