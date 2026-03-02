@@ -2,7 +2,7 @@
     "timeline": {
         "pages": 2
     },
-    "tags" : [
+    "tags": [
         {
             "name": "blue",
             "pages": 1
@@ -15,5 +15,5 @@
             "name": "red",
             "pages": 2
         }
-    ]    
+    ]
 }

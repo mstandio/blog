@@ -34,3 +34,21 @@ export interface Writer {
 export interface Page {
     posts: Post[];
 }
+
+export interface IndexTimeline {
+    pages: number;
+}
+
+export interface IndexTag {
+    name: string;
+    pages: number;
+}
+
+export interface IndexTags {
+    tags: IndexTag[];
+}
+
+export interface Index {
+    timeline: IndexTimeline;
+    tags: IndexTags;
+}

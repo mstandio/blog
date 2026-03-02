@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import type { BuilderConfig, Consumer, Page, PostMetadata, Writer } from './Model.ts';
+import type { BuilderConfig, Consumer, Page, PostMetadata, Writer, IndexTimeline } from './Model.ts';
 
 export class ConsumerTimeline implements Consumer {
     private readonly writer: Writer;
@@ -38,5 +38,11 @@ export class ConsumerTimeline implements Consumer {
         if(this.page.posts.length > 0) {
             this.writePage();
         }
+    }
+
+    getIndex(): IndexTimeline {
+        return {
+            pages: this.writeCounter - 1,
+        };
     }
 }
