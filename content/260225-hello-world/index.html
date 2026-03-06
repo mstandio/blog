@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+   <meta charset="UTF-8">
+</head>
+
+<body>
+   <h1 class="blog-builder-title">Hello world - blogging like its 2005</h1>
+   <hr/>
+   <a class="blog-builder-tag">self-hosting</a>   
+   <hr/>
+   <span class="blog-builder-teaser">Writing whatever to overcome perfectionism and fight writers block - some code snippets and hopefully some deployable projects.</span>   
+   <br/>
+   <br/>
+
+Lets start with hosting static content on github pages:
+
+<pre>
+   https://docs.github.com/en/pages/quickstart
+</pre>
+
+Follow instructions, key point which escaped me initially, is that naming repo in specific way "[username].github.io" publishes 
+repo as root of domain (so we have "[username].github.io/index.html" instead of "[username].github.io/[reponame]/index.html"). 
+Now, I do not want to use Jekyll (would rather generate my own static pages), and I need to publish only a specific direcory as root, 
+so I need stock "Deploy static content to Pages" but with additional config under "Checkout" step and "Upload artifact" step that point to specific directory.
+
+<pre>
+   https://github.com/mstandio/mstandio.github.io/blob/main/.github/workflows/static.yml
+</pre> 
+
+You gotta start somewhere.
+
+</body>
+</html>

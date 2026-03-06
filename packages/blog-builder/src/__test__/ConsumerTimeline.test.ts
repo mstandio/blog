@@ -19,7 +19,7 @@ describe('ConsumerTimeline', () => {
         // given
         const mockWriter: Writer = { write: vi.fn() };
         const consumer = new ConsumerTimeline(mockWriter, config);
-        const dir1 = join(SAMPLE_POSTS, '251013-some-description');
+        const dir1 = join(SAMPLE_POSTS, '251015-third-description');
         const dir2 = join(SAMPLE_POSTS, '251014-some-other-description');
         const expectedPage: Page = JSON.parse(
             readFileSync(join(EXPECTED_FULL, 'blog-builder-timeline-page1.json'), 'utf-8'),

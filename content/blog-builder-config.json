@@ -1,5 +1,5 @@
 {
-    "posts-per-page": 2,
+    "posts-per-page": 5,
     "title-class": "blog-builder-title",
     "teaser-class": "blog-builder-teaser",
     "tag-class": "blog-builder-tag",

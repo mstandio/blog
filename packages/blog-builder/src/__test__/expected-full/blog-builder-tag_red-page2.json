@@ -1,11 +1,12 @@
 {
    "posts": [
       {
-         "title": "This is third title",
-         "teaser": "This is third teaser text",
-         "date": "2025-10-15",
-         "url": "/251015-third-description",
+         "title": "This is some title",
+         "teaser": "This is some teaser text",
+         "date": "2025-10-13",
+         "url": "/251013-some-description",
          "tags": [
+            "blue",
             "green",
             "red"
          ]

@@ -8,7 +8,7 @@ export function traverse(rootDir: string, consumers: Consumer[]): void {
     const entries = readdirSync(rootDir, { withFileTypes: true });
     const qualifying = entries
         .filter((entry) => entry.isDirectory() && /^\d{6}-/.test(entry.name))
-        .sort((a, b) => a.name.localeCompare(b.name));
+        .sort((a, b) => b.name.localeCompare(a.name));
 
     for (const entry of qualifying) {
         const fullPath = join(rootDir, entry.name);

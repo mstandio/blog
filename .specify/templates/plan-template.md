@@ -31,7 +31,7 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-Verify compliance with `.specify/memory/constitution.md`: **(I)** Monorepo & Package Layout, **(II)** TypeScript Everywhere, **(III)** Test-First (TDD), **(IV)** Builder–Viewer Contract, **(V)** Modular CLI & Static Pipeline. [Add any feature-specific gates from the constitution.]
+[Gates determined based on constitution file]
 
 ## Project Structure
 

@@ -19,7 +19,7 @@ describe('ConsumerTags', () => {
         // given
         const mockWriter: Writer = { write: vi.fn() };
         const consumer = new ConsumerTags(mockWriter, config);
-        const dir1 = join(SAMPLE_POSTS, '251013-some-description');  // tags: blue, green, red
+        const dir1 = join(SAMPLE_POSTS, '251015-third-description');  // tags: green, red
         const dir2 = join(SAMPLE_POSTS, '251014-some-other-description');  // tags: red
         const expectedPage: Page = JSON.parse(
             readFileSync(join(EXPECTED_FULL, 'blog-builder-tag_red-page1.json'), 'utf-8'),

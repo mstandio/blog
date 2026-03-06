@@ -4,15 +4,15 @@
     },
     "tags": [
         {
-            "name": "blue",
+            "name": "node.js",
             "pages": 1
         },
         {
-            "name": "green",
+            "name": "self-hosting",
             "pages": 1
         },
         {
-            "name": "red",
+            "name": "spec-kit",
             "pages": 1
         }
     ]

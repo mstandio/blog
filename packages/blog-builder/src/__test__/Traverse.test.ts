@@ -23,9 +23,9 @@ describe('traverse', () => {
 
         // then
         expect(consumed).toEqual([
-            join(SAMPLE_POSTS, '251013-some-description'),
-            join(SAMPLE_POSTS, '251014-some-other-description'),
             join(SAMPLE_POSTS, '251015-third-description'),
+            join(SAMPLE_POSTS, '251014-some-other-description'),
+            join(SAMPLE_POSTS, '251013-some-description'),
         ]);
     });
 
@@ -101,9 +101,9 @@ describe('traverse + ConsumerLogger integration', () => {
         // then
         expect(logger.log).toHaveBeenCalledTimes(3);
         expect(logger.log.mock.calls.map(([arg]) => arg)).toEqual([
-            '251013-some-description',
-            '251014-some-other-description',
             '251015-third-description',
+            '251014-some-other-description',
+            '251013-some-description',
         ]);
     });
 });

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+   <meta charset="UTF-8">
+</head>
+
+<body>
+   <h1 class="blog-builder-title">Static pages - content structure and features</h1>
+   <hr/>
+   <a class="blog-builder-tag">self-hosting</a>   
+   <hr/>
+   <span class="blog-builder-teaser">Figure out conventions for folder structures and metadata.</span>   
+   <br/>
+   <br/>
+
+So just to keep it simple: one directory per post, directories must be named in a way that is sortable by date and structure must be easy to display in a tree view.
+
+    <pre>
+    content/
+    ├── 260226-static-pages-pt1/
+    │   ├── resources/
+    │   └── index.html
+    ├── 260227-static-pages-pt2/
+    │    ├── resources/
+    │    └── index.html
+    └──index.html    
+    </pre>
+    
+Then, landing page should have paginated list of posts sorted by date, each entry containing title, teaser, date, and link to post.
+Blog should also have some way of tagging posts and browsing posts by tags. Each post page should be able to stand on its own, 
+so if user navigates to post page directly nothing should break. 
+<br/>
+<br/>
+Metadata like Title, Teaser, Date, Tags, will be embedded in the HTML file using specific CSS classes. Then a script will work over directory structure, 
+and generate *.json files of different kind which in turn can be used as a substitute for database queries. 
+</body>
+</html>

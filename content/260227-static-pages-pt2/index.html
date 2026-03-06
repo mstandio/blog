@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+   <meta charset="UTF-8">
+</head>
+
+<body>
+   <h1 class="blog-builder-title">Static pages - script for ingesting data</h1>
+   <hr/>
+   <a class="blog-builder-tag">self-hosting</a>   
+   <a class="blog-builder-tag">spec-kit</a>
+   <a class="blog-builder-tag">node.js</a>
+   <hr/>
+   <span class="blog-builder-teaser">Test data as specification for spec driven development</span>   
+   <br/>
+   <br/>
+Ideally I want to write a node.js script (site will use React so I need build tools anyway) that will just work. 
+But trick is to know what I want to have and guide LLM through my process step by step. Each step has to be verifiable.
+
+   <pre>
+   https://github.com/mstandio/mstandio.github.io/tree/main/packages/blog-builder/src/__test__/sample-posts
+   </pre>
+
+Input folder contains directories to process along as config file. 
+Config helps keeping behaviour of code in global definition which can be modified on the fly when running tests.
+        
+   <pre>
+   https://github.com/mstandio/mstandio.github.io/blob/main/packages/blog-builder/src/__test__/sample-posts/config.json
+   </pre>
+
+Then I want to produce different kinds of output files: 
+    <ul>
+    <li>"Timeline" files, one for each page of posts </li>
+    <li>"Tag" files, one series of pages for each tag </li>
+    <li>"Index" file, which tells how many pages timeline has, how many tags are there and how many pages each tag has</li>
+    </ul>
+
+   <pre>
+   https://github.com/mstandio/mstandio.github.io/tree/main/packages/blog-builder/src/__test__/expected-full
+   </pre>
+
+After setting up monorepo (script and site will share same tooling and same data model) time to move on with implementation. 
+Using speckit to define "constitution" which is funnily enough also LLM generared I set up with first steps of implementation.
+
+   <pre>
+   https://github.com/github/spec-kit
+   </pre>
+
+   Workflow is more or less as follows: 
+
+   <ul>
+    <li>Set up place to hold data model, where I define config, post meta-data, pages, but also interfaces for classes used in script.</li>
+    <li>Create Traverse utility which will recognize directories containing posts and iterate over them in expected order. 
+        Traverse will accept an array of Consumers, and for each directory Traverse will call all Consumers in order. 
+		This is big leap from nothing to something, I will need Traverse and a Consumer that does simple logging - then verification if implementation is correct must be done against prepared test data: If Traverse with ConsumerLogger is run against test directory, I expect three log entries to be printed.</li>
+	<li>Next I define ConsumerDigest which produces *.json files with post metadata parsed from html, saved in traversed directory. </li>
+	<li>Next I need ConsumerTimeline, which reads post metadata files, aggregates them into pages and rolls over to next page once page size defined in config is exceeded. Each previous page is written as *.json, act of writing is delegated to separate class for easer mocking.</li>
+	<li>Next comes ConsumerTags which works analgically to ConsumerTimeline but each found tag has its own timeline series.</li>
+	<li>Now its time for some integration tests where Traverse is configured with Consumers and produces actual files.</li>	
+	<li>Last thing is putting together BlogBuilder which handles config and Consumers initialization, input and output directories are held separately to allow full testing without overriting reference output files.</li>
+   </ul>
+
+   <pre>
+   https://github.com/mstandio/mstandio.github.io/tree/main/packages/blog-builder/src/utils
+   </pre>
+
+Every step has verifiable result, so "when this util is provided with this directory as input I expect this *.json file as an output" and so on. 
+First steps were done with full speckit worflow, but then rest were just prompting Claude directly, it automagically obeyed rules that require 
+him to run test suites after each modification. Actual hard part is that this is my first project in node.js so while I was pointing at direction and holding
+steering wheel, implementation happened automatically, ech intermediate step worked and so did final assembled script.
+
+</body>
+</html>
